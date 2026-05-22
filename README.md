@@ -21,6 +21,8 @@ The code reproduces the main results of the paper, including:
 - Comparison with the optimal classical interferometer (OCI) and the cascaded protocol.
 - Analysis with imperfect (noisy) ancilla measurements.
 
+  Examples can be found in sample_fi.m.
+
 ## Citation
 
 ```bibtex

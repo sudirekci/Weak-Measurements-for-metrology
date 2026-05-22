@@ -5,7 +5,7 @@
 % prob_w shape: (1, no_samples)
 
 function [w_estimate] = maximum_likelihood_est_classical(outcomes, T, tau, ...
-    g, no_atoms, no_samples, strong_meas)
+    g, no_atoms, no_samples, strong_meas, p_e)
 
 
     w_array = pi/T:0.15*pi/T:pi/(2*tau);
@@ -18,7 +18,7 @@ function [w_estimate] = maximum_likelihood_est_classical(outcomes, T, tau, ...
     for w_init = w_array
 
         [prob_w_given_tr] = simulate_classical_trajectory(outcomes, ...
-            w_init, T, tau, g, no_atoms, no_samples, strong_meas);
+            w_init, T, tau, g, no_atoms, no_samples, strong_meas, p_e);
 
         prob_w(ii, :) = sum(prob_w_given_tr, 1);
         ii = ii+1;
@@ -37,7 +37,7 @@ function [w_estimate] = maximum_likelihood_est_classical(outcomes, T, tau, ...
     parfor i = 1:no_samples
 
         fun = @(x)-1*simulate_classical_trajectory(outcomes(:, i), x, ...
-            T, tau, g, no_atoms, 1, strong_meas);
+            T, tau, g, no_atoms, 1, strong_meas, p_e);
 
         x0 = w_0(i);
 

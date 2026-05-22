@@ -1,7 +1,7 @@
 
 
 function [mle_variance] = variance_of_mle(g_array, no_samples, ...
-    T, tau, w, no_atoms, strong_meas, classical)
+    T, tau, w, no_atoms, strong_meas, classical, p_e)
 
     mle_variance = zeros(1, length(g_array));
 
@@ -25,10 +25,13 @@ function [mle_variance] = variance_of_mle(g_array, no_samples, ...
     
         % sample random trajectories
         [outcomes, ~] = sample_fun(T, tau, g, w, no_atoms, no_samples, ...
-            strong_meas);
+            strong_meas, p_e);
 
         [w_est] = max_likelihood_fcn(outcomes, T, tau, g, ...
-            no_atoms, no_samples, strong_meas);
+            no_atoms, no_samples, strong_meas, p_e);
+
+        % w
+        % w_est
 
         mle_variance(g_i) = sum((w - w_est).^2/no_samples, "all");
     
